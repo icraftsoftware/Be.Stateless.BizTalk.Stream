@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 #endregion
 
 using System.Text.RegularExpressions;
+using Be.Stateless.Runtime.Caching;
 
 namespace Be.Stateless.BizTalk.Runtime.Caching
 {
@@ -30,11 +31,11 @@ namespace Be.Stateless.BizTalk.Runtime.Caching
 		/// <summary>
 		/// Singleton <see cref="RegexCache"/> instance.
 		/// </summary>
-		public static RegexCache Instance { get; } = new RegexCache();
+		public static RegexCache Instance { get; } = new();
 
 		/// <summary>
 		/// Create the singleton <see cref="RegexCache"/> instance.
 		/// </summary>
-		private RegexCache() : base(key => key, key => new Regex(key, RegexOptions.Compiled)) { }
+		private RegexCache() : base(key => key, key => new(key, RegexOptions.Compiled)) { }
 	}
 }

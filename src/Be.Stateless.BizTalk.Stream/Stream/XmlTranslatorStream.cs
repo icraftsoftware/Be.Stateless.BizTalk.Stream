@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ namespace Be.Stateless.BizTalk.Stream
 			: this(reader, Encoding.UTF8, translations, XmlTranslationRequirements.Default) { }
 
 		public XmlTranslatorStream(XmlReader reader, Encoding encoding, XmlNamespaceTranslation[] translations, XmlTranslationRequirements modes)
-			: base(reader, encoding)
+			: base(reader.NodeType == XmlNodeType.Element ? reader.ReadSubtree() : reader, encoding)
 		{
 			_translations = translations;
 			_modes = modes;
@@ -40,6 +40,7 @@ namespace Be.Stateless.BizTalk.Stream
 
 		#region Base Class Member Overrides
 
+		[SuppressMessage("ReSharper", "InvertIf")]
 		protected override void TranslateAttribute()
 		{
 			var prefix = m_reader.Prefix;
@@ -88,13 +89,11 @@ namespace Be.Stateless.BizTalk.Stream
 
 		#endregion
 
-		[SuppressMessage("Performance", "CA1822:Mark members as static")]
 		private bool IsNamespaceAttribute(string prefix, string localName, string nsUri)
 		{
 			return nsUri == XNamespace.Xmlns.NamespaceName && (prefix == "xmlns" || localName == "xmlns");
 		}
 
-		[SuppressMessage("Performance", "CA1822:Mark members as static")]
 		private bool IsGlobalNamespaceUri(string targetNamespaceUri)
 		{
 			return targetNamespaceUri.IsNullOrEmpty();

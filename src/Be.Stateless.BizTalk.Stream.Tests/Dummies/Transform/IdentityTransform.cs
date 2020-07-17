@@ -19,12 +19,12 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.XLANGs.BaseTypes;
 
-namespace Be.Stateless.BizTalk.Resources.Transform
+namespace Be.Stateless.BizTalk.Dummies.Transform
 {
 	/// <summary>
 	/// Utility identity transform that derives from <see cref="TransformBase"/>.
 	/// </summary>
-	[SchemaReference("Be.Stateless.BizTalk.Schemas.Xml.Any", typeof(Schemas.Xml.Any))]
+	[SchemaReference("Microsoft.XLANGs.BaseTypes.Any", typeof(Any))]
 	[SuppressMessage("ReSharper", "UnusedType.Global", Justification = "Unit Test Helper.")]
 	public class IdentityTransform : TransformBase
 	{
@@ -43,9 +43,9 @@ namespace Be.Stateless.BizTalk.Resources.Transform
 
 		#region Base Class Member Overrides
 
-		public override string[] SourceSchemas => new[] { typeof(Schemas.Xml.Any).FullName };
+		public override string[] SourceSchemas => new[] { typeof(Any).FullName };
 
-		public override string[] TargetSchemas => new[] { typeof(Schemas.Xml.Any).FullName };
+		public override string[] TargetSchemas => new[] { typeof(Any).FullName };
 
 		public override string XmlContent => _xmlContent;
 

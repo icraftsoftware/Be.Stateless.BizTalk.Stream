@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -74,7 +74,6 @@ namespace Be.Stateless.BizTalk.Stream
 
 		#endregion
 
-		[SuppressMessage("Performance", "CA1819:Properties should not return arrays")]
 		[XmlElement("NamespaceTranslation")]
 		public XmlNamespaceTranslation[] Items
 		{
@@ -94,12 +93,10 @@ namespace Be.Stateless.BizTalk.Stream
 			if (second == null) throw new ArgumentNullException(nameof(second));
 			return Override
 				? this
-				: new XmlTranslationSet { Items = Items.Union(second.Items).ToArray() };
+				: new() { Items = Items.Union(second.Items).ToArray() };
 		}
 
 		[Conditional("DEBUG")]
-		[SuppressMessage("Globalization", "CA1305:Specify IFormatProvider")]
-		[SuppressMessage("Performance", "CA1822:Mark members as static")]
 		[SuppressMessage("ReSharper", "UseStringInterpolation")]
 		private void CheckItemsUniqueness(IEnumerable<XmlNamespaceTranslation> items)
 		{
@@ -119,7 +116,7 @@ namespace Be.Stateless.BizTalk.Stream
 		}
 
 		public const string NAMESPACE = "urn:schemas.stateless.be:biztalk:translations:2013:07";
-		public static readonly XmlTranslationSet Empty = new XmlTranslationSet { Items = Array.Empty<XmlNamespaceTranslation>() };
+		public static readonly XmlTranslationSet Empty = new() { Items = Array.Empty<XmlNamespaceTranslation>() };
 		private XmlNamespaceTranslation[] _items;
 	}
 }

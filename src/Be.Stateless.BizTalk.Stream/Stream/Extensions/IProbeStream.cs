@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.BizTalk.Streaming;
 
 namespace Be.Stateless.BizTalk.Stream.Extensions
@@ -29,5 +30,14 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 		/// The message type if probing is successful, <c>null</c> otherwise.
 		/// </returns>
 		string MessageType { get; }
+
+		/// <summary>
+		/// The stream being probed.
+		/// </summary>
+		/// <remarks>
+		/// This property is meant to be used by custom stream probing extensions.
+		/// </remarks>
+		[SuppressMessage("ReSharper", "UnusedMemberInSuper.Global", Justification = "Public API.")]
+		MarkableForwardOnlyEventingReadStream Stream { get; }
 	}
 }

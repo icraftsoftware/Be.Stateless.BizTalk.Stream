@@ -19,9 +19,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.XLANGs.BaseTypes;
 
-namespace Be.Stateless.BizTalk.Resources.Transform
+namespace Be.Stateless.BizTalk.Dummies.Transform
 {
-	[SchemaReference(@"Be.Stateless.BizTalk.Schemas.Xml.Any", typeof(Schemas.Xml.Any))]
+	[SchemaReference("Microsoft.XLANGs.BaseTypes.Any", typeof(Any))]
 	internal sealed class CompoundContextMapTransform : TransformBase
 	{
 		[SuppressMessage("ReSharper", "StringLiteralTypo")]
@@ -32,7 +32,7 @@ namespace Be.Stateless.BizTalk.Resources.Transform
 	xmlns:bf='urn:schemas.stateless.be:biztalk:properties:system:2012:04'
 	xmlns:bts='http://schemas.microsoft.com/BizTalk/2003/system-properties'
 	exclude-result-prefixes='ctxt bf bts'>
-	<xsl:variable name='environmentTag' select=""ctxt:Read('bf:EnvironmentTag')""/>
+	<xsl:variable name='environmentTag' select=""ctxt:Read('bf:ContextBuilderTypeName')""/>
 	<xsl:variable name='operation' select=""ctxt:Read('bts:Operation')""/>
 	<xsl:template match='one'><first><xsl:value-of select='text()'/></first></xsl:template>
 </xsl:stylesheet>";
@@ -40,9 +40,9 @@ namespace Be.Stateless.BizTalk.Resources.Transform
 
 		#region Base Class Member Overrides
 
-		public override string[] SourceSchemas => new[] { @"Be.Stateless.BizTalk.Schemas.Xml.Any" };
+		public override string[] SourceSchemas => new[] { typeof(Any).FullName };
 
-		public override string[] TargetSchemas => new[] { @"Be.Stateless.BizTalk.Schemas.Xml.Any" };
+		public override string[] TargetSchemas => new[] { typeof(Any).FullName };
 
 		public override string XmlContent => _xmlContent;
 

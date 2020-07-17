@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,8 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using Be.Stateless.BizTalk.Schemas;
-using Be.Stateless.BizTalk.Xml;
+using Be.Stateless.BizTalk.Namespaces;
 using Be.Stateless.IO;
 using Be.Stateless.Linq.Extensions;
 using log4net;
@@ -32,7 +31,7 @@ using log4net;
 namespace Be.Stateless.BizTalk.Stream
 {
 	/// <summary>
-	/// Aggregates, at the stream level, several <see cref="Stream"/>s whose contents is XML.
+	/// Aggregates, at the stream level, several <see cref="System.IO.Stream"/>s whose contents is XML.
 	/// </summary>
 	/// <remarks>
 	/// <para>
@@ -42,7 +41,7 @@ namespace Be.Stateless.BizTalk.Stream
 	/// able to lift either of these constraints.
 	/// </para>
 	/// <para>
-	/// The contents of the aggregated <see cref="Stream"/>s is wrapped in an XML structured as follows:
+	/// The contents of the aggregated <see cref="System.IO.Stream"/>s is wrapped in an XML structured as follows:
 	/// <code>
 	/// <![CDATA[<agg:Root xmlns:agg="http://schemas.microsoft.com/BizTalk/2003/aggschema">
 	///   <agg:InputMessagePart_0>
@@ -59,14 +58,13 @@ namespace Be.Stateless.BizTalk.Stream
 	/// </code>
 	/// </para>
 	/// </remarks>
-	/// <seealso cref="CompositeXmlReader.Create(System.Collections.Generic.IEnumerable{Stream},XmlReaderSettings)">CompositeXmlReader.Create</seealso>
 	public class CompositeXmlStream : System.IO.Stream
 	{
 		/// <summary>
 		/// Construct an <see cref="CompositeXmlStream"/> instance wrapper around the <paramref name="streams"/>.
 		/// </summary>
 		/// <param name="streams">
-		/// The <see cref="Stream"/>s to wrap.
+		/// The <see cref="System.IO.Stream"/>s to wrap.
 		/// </param>
 		public CompositeXmlStream(System.IO.Stream[] streams)
 		{
@@ -377,7 +375,7 @@ namespace Be.Stateless.BizTalk.Stream
 		private const string INPUT_MESSAGE_PART_END_TAG = "</agg:InputMessagePart_{0}>";
 		private const string INPUT_MESSAGE_PART_START_TAG = "<agg:InputMessagePart_{0}>";
 		private const string ROOT_END_TAG = "</agg:Root>";
-		private const string ROOT_START_TAG = "<agg:Root xmlns:agg=\"" + SchemaNamespaces.BizTalkAggregate + "\">";
+		private const string ROOT_START_TAG = "<agg:Root xmlns:agg=\"" + XmlSchemaNamespaces.BizTalkAggregate + "\">";
 		private static readonly ILog _logger = LogManager.GetLogger(typeof(CompositeXmlStream));
 		private byte[] _backlog;
 		private System.IO.Stream _currentStream;

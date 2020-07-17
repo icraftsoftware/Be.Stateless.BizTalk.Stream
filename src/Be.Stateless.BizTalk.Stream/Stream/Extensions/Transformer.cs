@@ -24,8 +24,8 @@ using System.Text;
 using System.Xml;
 using System.Xml.Xsl;
 using Be.Stateless.BizTalk.Message.ExtensionObjects;
+using Be.Stateless.BizTalk.Namespaces;
 using Be.Stateless.BizTalk.Runtime.Caching;
-using Be.Stateless.BizTalk.Schemas;
 using Be.Stateless.BizTalk.Xml.Xsl;
 using Be.Stateless.BizTalk.Xml.Xsl.Extensions;
 using Microsoft.BizTalk.Message.Interop;
@@ -100,6 +100,7 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 			return XsltCache.Instance[transform];
 		}
 
+		[SuppressMessage("ReSharper", "InvertIf")]
 		internal XsltArgumentList BuildArgumentList(XslCompiledTransformDescriptor descriptor, XsltArgumentList arguments)
 		{
 			// Ensures a fresh copy of descriptor.Arguments is returned should it be augmented with either the current

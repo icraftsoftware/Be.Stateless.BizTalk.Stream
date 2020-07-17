@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,16 +16,19 @@
 
 #endregion
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.XPath;
+using Be.Stateless.IO.Extensions;
 using Be.Stateless.Linq.Extensions;
 using Be.Stateless.Xml.XPath.Extensions;
 using FluentAssertions;
 using Xunit;
+using static FluentAssertions.FluentActions;
 
 namespace Be.Stateless.BizTalk.Stream
 {
@@ -88,6 +91,28 @@ namespace Be.Stateless.BizTalk.Stream
 		}
 
 		[Fact]
+		public void InputXmlReaderCannotBeMovedToContent()
+		{
+			var inputXmlReader = XmlReader.Create(new StringReader("<payload>dummy</payload>"));
+			var stream = new XmlTranslatorStream(inputXmlReader, new[] { new XmlNamespaceTranslation { MatchingPatternString = string.Empty, ReplacementPattern = "urn:ns" } });
+			// move to content after XmlTranslatorStream initialization to trick it
+			inputXmlReader.MoveToContent();
+			Invoking(() => stream.ReadToEnd())
+				.Should().Throw<InvalidOperationException>()
+				.WithMessage("There was no XML start tag open.");
+		}
+
+		[Fact]
+		public void InputXmlReaderIfMovedToContentWillBeHandled()
+		{
+			var inputXmlReader = XmlReader.Create(new StringReader("<payload>dummy</payload>"));
+			// move to content before XmlTranslatorStream initialization to let it workaround the issue
+			inputXmlReader.MoveToContent();
+			var stream = new XmlTranslatorStream(inputXmlReader, new[] { new XmlNamespaceTranslation { MatchingPatternString = string.Empty, ReplacementPattern = "urn:ns" } });
+			stream.ReadToEnd().Should().Be("<payload xmlns=\"urn:ns\">dummy</payload>");
+		}
+
+		[Fact]
 		public void ProcessAttributes()
 		{
 			using (var reader = XmlReader.Create(new StringReader(@"<test xmlns:ns='stuff' ns:att='22'>value</test>")))
@@ -99,7 +124,7 @@ namespace Be.Stateless.BizTalk.Stream
 						new[] { new XmlNamespaceTranslation("stuff", "urn:test") },
 						XmlTranslationRequirements.TranslateAttributeNamespace)).CreateNavigator();
 
-				navigator.Select("/test/@ns:att", "ns=urn:test").Should().HaveCount(1);
+				navigator.Select("/test/@ns:att", "ns=urn:test").Cast<XPathNavigator>().Should().HaveCount(1);
 			}
 		}
 
@@ -115,7 +140,7 @@ namespace Be.Stateless.BizTalk.Stream
 						new[] { new XmlNamespaceTranslation("stuff", "") },
 						XmlTranslationRequirements.Default)).CreateNavigator();
 
-				navigator.Select("/test").Should().HaveCount(1);
+				navigator.Select("/test").Cast<XPathNavigator>().Should().HaveCount(1);
 			}
 		}
 
@@ -131,7 +156,7 @@ namespace Be.Stateless.BizTalk.Stream
 						new[] { new XmlNamespaceTranslation("stuff", "") },
 						XmlTranslationRequirements.Default)).CreateNavigator();
 
-				navigator.Select("/test").Should().HaveCount(1);
+				navigator.Select("/test").Cast<XPathNavigator>().Should().HaveCount(1);
 			}
 		}
 
@@ -160,9 +185,9 @@ namespace Be.Stateless.BizTalk.Stream
 						},
 						XmlTranslationRequirements.Default)).CreateNavigator();
 
-				navigator.Select("//s0:*", "s0=http://Microsoft.LobServices.Sap/2007/03/Idoc/ANY_IDOC/Receive").Should().HaveCount(2);
-				navigator.Select("//s1:*", "s1=http://Microsoft.LobServices.Sap/2007/03/Types/Idoc/ANY_IDOC").Should().HaveCount(1);
-				navigator.Select("//s2:*", "s2=http://Microsoft.LobServices.Sap/2007/03/Types/Idoc/Common/").Should().HaveCount(1);
+				navigator.Select("//s0:*", "s0=http://Microsoft.LobServices.Sap/2007/03/Idoc/ANY_IDOC/Receive").Cast<XPathNavigator>().Should().HaveCount(2);
+				navigator.Select("//s1:*", "s1=http://Microsoft.LobServices.Sap/2007/03/Types/Idoc/ANY_IDOC").Cast<XPathNavigator>().Should().HaveCount(1);
+				navigator.Select("//s2:*", "s2=http://Microsoft.LobServices.Sap/2007/03/Types/Idoc/Common/").Cast<XPathNavigator>().Should().HaveCount(1);
 			}
 		}
 
@@ -178,7 +203,7 @@ namespace Be.Stateless.BizTalk.Stream
 						new[] { new XmlNamespaceTranslation("stuff", "urn:test") },
 						XmlTranslationRequirements.Default)).CreateNavigator();
 
-				navigator.Select("/s0:test", "s0=urn:test").Should().HaveCount(1);
+				navigator.Select("/s0:test", "s0=urn:test").Cast<XPathNavigator>().Should().HaveCount(1);
 			}
 		}
 
@@ -195,7 +220,7 @@ namespace Be.Stateless.BizTalk.Stream
 							XmlTranslationRequirements.Default))
 					.CreateNavigator();
 
-				navigator.Select("/s0:testField", "s0=urn:test").Should().HaveCount(1);
+				navigator.Select("/s0:testField", "s0=urn:test").Cast<XPathNavigator>().Should().HaveCount(1);
 			}
 		}
 
@@ -211,7 +236,7 @@ namespace Be.Stateless.BizTalk.Stream
 						new[] { new XmlNamespaceTranslation(string.Empty, "urn:test") },
 						XmlTranslationRequirements.Default)).CreateNavigator();
 
-				navigator.Select("/s0:test/s0:other/@xsi:nil", "s0=urn:test", "xsi=http://www.w3.org/2001/XMLSchema-instance").Should().HaveCount(1);
+				navigator.Select("/s0:test/s0:other/@xsi:nil", "s0=urn:test", "xsi=http://www.w3.org/2001/XMLSchema-instance").Cast<XPathNavigator>().Should().HaveCount(1);
 			}
 		}
 
@@ -227,7 +252,7 @@ namespace Be.Stateless.BizTalk.Stream
 						new[] { new XmlNamespaceTranslation("stuff", "urn:test") },
 						XmlTranslationRequirements.Default)).CreateNavigator();
 
-				navigator.Select("/s0:test", "s0=urn:test").Should().HaveCount(1);
+				navigator.Select("/s0:test", "s0=urn:test").Cast<XPathNavigator>().Should().HaveCount(1);
 			}
 		}
 
@@ -256,9 +281,9 @@ namespace Be.Stateless.BizTalk.Stream
 						},
 						XmlTranslationRequirements.Default)).CreateNavigator();
 
-				navigator.Select("//s0:*", "s0=http://Microsoft.LobServices.Sap/2007/03/Idoc/3/ANY_IDOC//701/Send").Should().HaveCount(2);
-				navigator.Select("//s1:*", "s1=http://Microsoft.LobServices.Sap/2007/03/Types/Idoc/3/ANY_IDOC//701").Should().HaveCount(1);
-				navigator.Select("//s2:*", "s2=http://Microsoft.LobServices.Sap/2007/03/Types/Idoc/Common/").Should().HaveCount(1);
+				navigator.Select("//s0:*", "s0=http://Microsoft.LobServices.Sap/2007/03/Idoc/3/ANY_IDOC//701/Send").Cast<XPathNavigator>().Should().HaveCount(2);
+				navigator.Select("//s1:*", "s1=http://Microsoft.LobServices.Sap/2007/03/Types/Idoc/3/ANY_IDOC//701").Cast<XPathNavigator>().Should().HaveCount(1);
+				navigator.Select("//s2:*", "s2=http://Microsoft.LobServices.Sap/2007/03/Types/Idoc/Common/").Cast<XPathNavigator>().Should().HaveCount(1);
 			}
 		}
 	}

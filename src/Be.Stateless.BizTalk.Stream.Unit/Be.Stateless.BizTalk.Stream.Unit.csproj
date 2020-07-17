@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <RootNamespace>Be.Stateless.BizTalk</RootNamespace>
-    <AssemblyName>Be.Stateless.BizTalk.Stream</AssemblyName>
-    <Description>BizTalk Factory's stream class library for general purpose BizTalk Server development.</Description>
+    <AssemblyName>Be.Stateless.BizTalk.Stream.Unit</AssemblyName>
+    <Description>BizTalk Factory's unit test helpers for Be.Stateless.BizTalk.Stream class library.</Description>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -22,7 +22,7 @@
     <!--<PackageIconUrl>icon url prop</PackageIconUrl>-->
     <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
     <!--<PackageReleaseNotes>release notes prop</PackageReleaseNotes>-->
-    <PackageTags>BizTalk stream library extension utility</PackageTags>
+    <PackageTags>BizTalk stream library extension testing utility</PackageTags>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
@@ -37,26 +37,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Be.Stateless.BizTalk.Xml" Version="2.1.22025.24612" />
-    <PackageReference Include="Be.Stateless.Extensions" Version="2.1.22025.20499" />
-    <PackageReference Include="Be.Stateless.Runtime" Version="2.1.22025.21140" />
-    <PackageReference Include="Be.Stateless.Stream" Version="2.1.22025.21947" />
-    <PackageReference Include="Be.Stateless.Xml" Version="2.1.22025.22704" />
     <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="log4net" Version="2.0.14" />
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+    <PackageReference Include="Moq" Version="4.16.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Be.Stateless.BizTalk.Stream\Be.Stateless.BizTalk.Stream.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Net.Http" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -31,11 +31,11 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 	public interface ITransformStream
 	{
 		/// <summary>
-		/// Applies the <see cref="Stream"/>-derived transform on the current <see cref="Stream"/>, or <see cref="Stream"/>s, and
-		/// returns the results as another <see cref="Stream"/>.
+		/// Applies the <see cref="System.IO.Stream"/>-derived transform on the current <see cref="System.IO.Stream"/>, or <see
+		/// cref="System.IO.Stream"/>s, and returns the results as another <see cref="System.IO.Stream"/>.
 		/// </summary>
 		/// <param name="transform">
-		/// The <see cref="Stream"/>-derived type of the transform to apply.
+		/// The <see cref="System.IO.Stream"/>-derived type of the transform to apply.
 		/// </param>
 		/// <returns>
 		/// The output <see cref="TransformBase"/> being the results of the transform.
@@ -43,23 +43,23 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 		System.IO.Stream Apply(Type transform);
 
 		/// <summary>
-		/// Applies the <see cref="TransformBase"/>-derived transform on the current <see cref="Stream"/>, or <see
-		/// cref="Stream"/>s, and returns the results as another <see cref="Stream"/>.
+		/// Applies the <see cref="TransformBase"/>-derived transform on the current <see cref="System.IO.Stream"/>, or <see
+		/// cref="System.IO.Stream"/>s, and returns the results as another <see cref="System.IO.Stream"/>.
 		/// </summary>
 		/// <param name="transform">
 		/// The <see cref="TransformBase"/>-derived type of the transform to apply.
 		/// </param>
 		/// <param name="encoding">
-		/// The encoding to use for the output <see cref="Stream"/>.
+		/// The encoding to use for the output <see cref="System.IO.Stream"/>.
 		/// </param>
 		/// <returns>
-		/// The output <see cref="Stream"/> being the results of the transform.
+		/// The output <see cref="System.IO.Stream"/> being the results of the transform.
 		/// </returns>
 		System.IO.Stream Apply(Type transform, Encoding encoding);
 
 		/// <summary>
-		/// Applies the <see cref="TransformBase"/>-derived transform on the current <see cref="Stream"/>, or <see
-		/// cref="Stream"/>s, and returns the results as another <see cref="Stream"/>.
+		/// Applies the <see cref="TransformBase"/>-derived transform on the current <see cref="System.IO.Stream"/>, or <see
+		/// cref="System.IO.Stream"/>s, and returns the results as another <see cref="System.IO.Stream"/>.
 		/// </summary>
 		/// <param name="transform">
 		/// The <see cref="TransformBase"/>-derived type of the transform to apply.
@@ -68,13 +68,13 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 		/// An <see cref="XsltArgumentList"/> containing the namespace-qualified arguments used as input to the transform.
 		/// </param>
 		/// <returns>
-		/// The output <see cref="Stream"/> being the results of the transform.
+		/// The output <see cref="System.IO.Stream"/> being the results of the transform.
 		/// </returns>
 		System.IO.Stream Apply(Type transform, XsltArgumentList arguments);
 
 		/// <summary>
-		/// Applies the <see cref="TransformBase"/>-derived transform on the current <see cref="Stream"/>, or <see
-		/// cref="Stream"/>s, and returns the results as another <see cref="Stream"/>.
+		/// Applies the <see cref="TransformBase"/>-derived transform on the current <see cref="System.IO.Stream"/>, or <see
+		/// cref="System.IO.Stream"/>s, and returns the results as another <see cref="System.IO.Stream"/>.
 		/// </summary>
 		/// <param name="transform">
 		/// The <see cref="TransformBase"/>-derived type of the transform to apply.
@@ -83,10 +83,10 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 		/// An <see cref="XsltArgumentList"/> containing the namespace-qualified arguments used as input to the transform.
 		/// </param>
 		/// <param name="encoding">
-		/// The encoding to use for the output <see cref="Stream"/>.
+		/// The encoding to use for the output <see cref="System.IO.Stream"/>.
 		/// </param>
 		/// <returns>
-		/// The output <see cref="Stream"/> being the results of the transform.
+		/// The output <see cref="System.IO.Stream"/> being the results of the transform.
 		/// </returns>
 		System.IO.Stream Apply(Type transform, XsltArgumentList arguments, Encoding encoding);
 
@@ -99,7 +99,8 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 		/// cref="XslCompiledTransformDescriptor.ExtensionRequirements"/>.
 		/// </param>
 		/// <returns>
-		/// The <see cref="ITransformStream"/> instance that will apply the transform on the current <see cref="Stream"/>.
+		/// The <see cref="ITransformStream"/> instance that will apply the transform on the current <see
+		/// cref="System.IO.Stream"/>.
 		/// </returns>
 		ITransformStream ExtendWith(IBaseMessageContext context);
 	}
