@@ -17,6 +17,7 @@
 #endregion
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Be.Stateless.IO;
 using log4net;
@@ -191,6 +192,7 @@ namespace Be.Stateless.BizTalk.Stream
 		/// <param name="count">
 		/// The maximum number of bytes to be read from the current stream.
 		/// </param>
+		[SuppressMessage("ReSharper", "InvertIf")]
 		public override int Read(byte[] buffer, int offset, int count)
 		{
 			try

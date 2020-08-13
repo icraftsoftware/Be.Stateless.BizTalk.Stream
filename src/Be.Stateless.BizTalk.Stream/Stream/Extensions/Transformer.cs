@@ -100,6 +100,7 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 			return XsltCache.Instance[transform];
 		}
 
+		[SuppressMessage("ReSharper", "InvertIf")]
 		internal XsltArgumentList BuildArgumentList(XslCompiledTransformDescriptor descriptor, XsltArgumentList arguments)
 		{
 			// Ensures a fresh copy of descriptor.Arguments is returned should it be augmented with either the current

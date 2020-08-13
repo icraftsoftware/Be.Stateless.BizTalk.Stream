@@ -40,6 +40,7 @@ namespace Be.Stateless.BizTalk.Stream
 
 		#region Base Class Member Overrides
 
+		[SuppressMessage("ReSharper", "InvertIf")]
 		protected override void TranslateAttribute()
 		{
 			var prefix = m_reader.Prefix;
