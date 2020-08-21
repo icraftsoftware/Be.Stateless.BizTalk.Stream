@@ -18,6 +18,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -40,6 +41,7 @@ namespace Be.Stateless.BizTalk.Stream
 			}
 		}
 
+		[SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
 		public static string Serialize(XmlTranslationSet translations)
 		{
 			if (translations == null || !translations.Items.Any()) return null;
