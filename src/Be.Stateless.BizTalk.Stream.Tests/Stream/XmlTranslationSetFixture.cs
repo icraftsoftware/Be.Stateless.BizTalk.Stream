@@ -20,7 +20,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using Xunit;
-using static Be.Stateless.BizTalk.DelegateFactory;
+using static Be.Stateless.DelegateFactory;
 
 namespace Be.Stateless.BizTalk.Stream
 {
