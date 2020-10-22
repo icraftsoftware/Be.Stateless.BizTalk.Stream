@@ -59,7 +59,6 @@ namespace Be.Stateless.BizTalk.Stream
 	/// </code>
 	/// </para>
 	/// </remarks>
-	/// <seealso cref="CompositeXmlReader.Create(System.Collections.Generic.IEnumerable{Stream},XmlReaderSettings)">CompositeXmlReader.Create</seealso>
 	public class CompositeXmlStream : System.IO.Stream
 	{
 		/// <summary>

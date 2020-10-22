@@ -19,9 +19,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.XLANGs.BaseTypes;
 
-namespace Be.Stateless.BizTalk.Resources.Transform
+namespace Be.Stateless.BizTalk.Dummies.Transform
 {
-	[SchemaReference(@"Be.Stateless.BizTalk.Schemas.Xml.Any", typeof(Schemas.Xml.Any))]
+	[SchemaReference("Microsoft.XLANGs.BaseTypes.Any", typeof(Any))]
 	internal sealed class CompositeMapTransform : TransformBase
 	{
 		[SuppressMessage("ReSharper", "StringLiteralTypo")]
@@ -33,17 +33,17 @@ namespace Be.Stateless.BizTalk.Resources.Transform
 	xmlns:bf='urn:schemas.stateless.be:biztalk:properties:system:2012:04'
 	xmlns:bts='http://schemas.microsoft.com/BizTalk/2003/system-properties'
 	exclude-result-prefixes='ctxt bf bts'>
-	<xsl:import href='map://type/Be.Stateless.BizTalk.Resources.Transform.IdentityTransform, Be.Stateless.BizTalk.Stream.Tests, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3707daa0b119fc14'/>
-	<xsl:include href='map://type/Be.Stateless.BizTalk.Resources.Transform.CompoundMapTransform, Be.Stateless.BizTalk.Stream.Tests, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3707daa0b119fc14'/>
+	<xsl:import href='map://type/Be.Stateless.BizTalk.Dummies.Transform.IdentityTransform, Be.Stateless.BizTalk.Stream.Tests, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3707daa0b119fc14'/>
+	<xsl:include href='map://type/Be.Stateless.BizTalk.Dummies.Transform.CompoundMapTransform, Be.Stateless.BizTalk.Stream.Tests, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3707daa0b119fc14'/>
 	<xsl:template match='six'><sixth><xsl:value-of select='text()'/></sixth></xsl:template>
 </xsl:stylesheet>";
 		}
 
 		#region Base Class Member Overrides
 
-		public override string[] SourceSchemas => new[] { @"Be.Stateless.BizTalk.Schemas.Xml.Any" };
+		public override string[] SourceSchemas => new[] { typeof(Any).FullName };
 
-		public override string[] TargetSchemas => new[] { @"Be.Stateless.BizTalk.Schemas.Xml.Any" };
+		public override string[] TargetSchemas => new[] { typeof(Any).FullName };
 
 		public override string XmlContent => _xmlContent;
 

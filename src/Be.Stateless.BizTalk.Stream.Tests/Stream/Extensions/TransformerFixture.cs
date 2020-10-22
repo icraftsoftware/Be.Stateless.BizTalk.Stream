@@ -22,7 +22,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Xsl;
 using Be.Stateless.BizTalk.ContextProperties;
-using Be.Stateless.BizTalk.Resources.Transform;
+using Be.Stateless.BizTalk.Dummies.Transform;
 using Be.Stateless.BizTalk.Runtime.Caching;
 using Be.Stateless.BizTalk.Schemas;
 using Be.Stateless.IO;

@@ -35,11 +35,11 @@ namespace Be.Stateless.BizTalk.Stream
 	/// </para>
 	/// <para>
 	/// In detailed terms, regardless of whether this stream's client will assume the end-of-stream has been reached as soon as
-	/// a <see cref="Stream.Read"/> operation returns less bytes than the number of bytes requested, or whether it will only
-   /// assume the end-of-stream has been reached once the <see cref="Stream.Read"/> operation returns zero (0) &#8212; which
-	/// is, by the way, the officially documented way of being notified the end-of-stream has been reached &#8212; an <see
-	/// cref="EventingReadStream"/> instance will always fire the <see cref="IProvideReadStreamEvents.AfterLastReadEvent"/>
-	/// event as soon as the inner stream's end has been reached.
+	/// a <see cref="System.IO.Stream.Read"/> operation returns less bytes than the number of bytes requested, or whether it
+   /// will only assume the end-of-stream has been reached once the <see cref="System.IO.Stream.Read"/> operation returns zero
+   /// (0) &#8212; which is, by the way, the officially documented way of being notified the end-of-stream has been reached
+   /// &#8212; an <see cref="EventingReadStream"/> instance will always fire the <see
+	/// cref="IProvideReadStreamEvents.AfterLastReadEvent"/> event as soon as the inner stream's end has been reached.
 	/// </para>
 	/// </remarks>
 	public class EventingReadStream : Microsoft.BizTalk.Streaming.EventingReadStream

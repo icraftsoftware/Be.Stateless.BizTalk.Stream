@@ -19,25 +19,25 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.XLANGs.BaseTypes;
 
-namespace Be.Stateless.BizTalk.Resources.Transform
+namespace Be.Stateless.BizTalk.Dummies.Transform
 {
-	[SchemaReference(@"Be.Stateless.BizTalk.Schemas.Xml.Any", typeof(Schemas.Xml.Any))]
+	[SchemaReference("Microsoft.XLANGs.BaseTypes.Any", typeof(Any))]
 	[SuppressMessage("ReSharper", "UnusedType.Global", Justification = "Unit test resource.")]
 	internal sealed class CompoundMapTransform : TransformBase
 	{
 		static CompoundMapTransform()
 		{
 			_xmlContent = @"<xsl:stylesheet version='1.0' xmlns:xsl='http://www.w3.org/1999/XSL/Transform'>
-	<xsl:import href='map://type/Be.Stateless.BizTalk.Resources.Transform.CompoundContextMapTransform, Be.Stateless.BizTalk.Stream.Tests, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3707daa0b119fc14' />
+	<xsl:import href='map://type/Be.Stateless.BizTalk.Dummies.Transform.CompoundContextMapTransform, Be.Stateless.BizTalk.Stream.Tests, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3707daa0b119fc14' />
 	<xsl:template match='two'><second><xsl:value-of select='text()'/></second></xsl:template>
 </xsl:stylesheet>";
 		}
 
 		#region Base Class Member Overrides
 
-		public override string[] SourceSchemas => new[] { @"Be.Stateless.BizTalk.Schemas.Xml.Any" };
+		public override string[] SourceSchemas => new[] { typeof(Any).FullName };
 
-		public override string[] TargetSchemas => new[] { @"Be.Stateless.BizTalk.Schemas.Xml.Any" };
+		public override string[] TargetSchemas => new[] { typeof(Any).FullName };
 
 		public override string XmlContent => _xmlContent;
 

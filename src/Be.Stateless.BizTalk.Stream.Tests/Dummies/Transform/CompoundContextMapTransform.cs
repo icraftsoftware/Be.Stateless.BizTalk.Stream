@@ -19,9 +19,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.XLANGs.BaseTypes;
 
-namespace Be.Stateless.BizTalk.Resources.Transform
+namespace Be.Stateless.BizTalk.Dummies.Transform
 {
-	[SchemaReference(@"Be.Stateless.BizTalk.Schemas.Xml.Any", typeof(Schemas.Xml.Any))]
+	[SchemaReference("Microsoft.XLANGs.BaseTypes.Any", typeof(Any))]
 	internal sealed class CompoundContextMapTransform : TransformBase
 	{
 		[SuppressMessage("ReSharper", "StringLiteralTypo")]
@@ -40,9 +40,9 @@ namespace Be.Stateless.BizTalk.Resources.Transform
 
 		#region Base Class Member Overrides
 
-		public override string[] SourceSchemas => new[] { @"Be.Stateless.BizTalk.Schemas.Xml.Any" };
+		public override string[] SourceSchemas => new[] { typeof(Any).FullName };
 
-		public override string[] TargetSchemas => new[] { @"Be.Stateless.BizTalk.Schemas.Xml.Any" };
+		public override string[] TargetSchemas => new[] { typeof(Any).FullName };
 
 		public override string XmlContent => _xmlContent;
 
