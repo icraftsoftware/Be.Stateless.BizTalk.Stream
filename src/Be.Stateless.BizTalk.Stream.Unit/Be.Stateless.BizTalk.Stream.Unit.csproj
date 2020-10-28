@@ -55,4 +55,8 @@
     <ProjectReference Include="..\Be.Stateless.BizTalk.Stream\Be.Stateless.BizTalk.Stream.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System.IO.Compression" />
+  </ItemGroup>
+
 </Project>

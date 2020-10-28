@@ -8,11 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Zip\MeteringRequest.zip" />
+    <None Remove="Resources\Zip\MeterReadsPeriodicDelivery.zip" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Zip\MeteringRequest.zip" />
+    <EmbeddedResource Include="Resources\Zip\MeterReadsPeriodicDelivery.zip" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\..\.settings\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Be.Stateless.Common" Version="2.0.20296.38588" />
     <PackageReference Include="Be.Stateless.Common.Unit" Version="2.0.20296.38588" />
+    <PackageReference Include="Be.Stateless.Stream.Unit" Version="2.0.20296.38697" />
     <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -32,6 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Be.Stateless.BizTalk.Stream.Unit\Be.Stateless.BizTalk.Stream.Unit.csproj" />
     <ProjectReference Include="..\Be.Stateless.BizTalk.Stream\Be.Stateless.BizTalk.Stream.csproj" />
   </ItemGroup>
 
