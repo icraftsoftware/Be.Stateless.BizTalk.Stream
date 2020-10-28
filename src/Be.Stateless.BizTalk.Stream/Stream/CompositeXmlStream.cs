@@ -24,7 +24,6 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using Be.Stateless.BizTalk.Schemas;
-using Be.Stateless.BizTalk.Xml;
 using Be.Stateless.IO;
 using Be.Stateless.Linq.Extensions;
 using log4net;
