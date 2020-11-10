@@ -42,10 +42,7 @@ namespace Be.Stateless.BizTalk.Stream
 		public ZipInputStream(System.IO.Stream streamToDecompress)
 		{
 			if (streamToDecompress == null) throw new ArgumentNullException(nameof(streamToDecompress));
-			if (!streamToDecompress.CanSeek)
-			{
-				streamToDecompress = new ReadOnlySeekableStream(streamToDecompress);
-			}
+			if (!streamToDecompress.CanSeek) streamToDecompress = new ReadOnlySeekableStream(streamToDecompress);
 			_baseInputStream = streamToDecompress;
 		}
 
