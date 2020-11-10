@@ -20,7 +20,6 @@ using System;
 using System.IO;
 using System.IO.Compression;
 using Be.Stateless.IO.Extensions;
-using Microsoft.BizTalk.Streaming;
 
 namespace Be.Stateless.BizTalk.Stream
 {
@@ -32,9 +31,9 @@ namespace Be.Stateless.BizTalk.Stream
 	/// <see cref="ZipInputStream"/> relies on <see cref="ZipArchive"/> for the decompression of the zip-stream. The stream
 	/// containing the zipped data must have exactly one <see cref="ZipArchiveEntry"/>. If more than one entry exist, only the
 	/// first one is decompressed and the remaining entries are disregarded. If the underlying stream given to the constructor
-	/// is not seekable, <see cref="ZipInputStream"/> will leverage BizTalk's built-in <see cref="ReadOnlySeekableStream"/> and
-	/// <see cref="VirtualStream"/> to avoid loading the whole stream in memory. This is necessary as <see cref="ZipArchive"/>
-	/// loads the entire archive stream in memory if the underlying stream does not support seeking.
+	/// is not seekable, <see cref="ZipInputStream"/> will leverage <see cref="ReadOnlySeekableStream"/> to avoid loading the
+	/// whole stream in memory. This is necessary as <see cref="ZipArchive"/> loads the entire archive stream in memory if the
+	/// underlying stream does not support seeking.
 	/// </remarks>
 	/// <seealso href="https://docs.microsoft.com/en-us/dotnet/api/system.io.compression.ziparchive">ZipArchive</seealso>
 	/// <seealso href="https://docs.microsoft.com/en-us/dotnet/api/system.io.compression.ziparchivemode#remarks">ZipArchiveMode</seealso>
@@ -45,8 +44,7 @@ namespace Be.Stateless.BizTalk.Stream
 			if (streamToDecompress == null) throw new ArgumentNullException(nameof(streamToDecompress));
 			if (!streamToDecompress.CanSeek)
 			{
-				var virtualStream = new VirtualStream(8*1024, 1024*1024);
-				streamToDecompress = new ReadOnlySeekableStream(streamToDecompress, virtualStream, 8*1024);
+				streamToDecompress = new ReadOnlySeekableStream(streamToDecompress);
 			}
 			_baseInputStream = streamToDecompress;
 		}
