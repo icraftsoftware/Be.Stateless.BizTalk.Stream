@@ -36,7 +36,7 @@ namespace Be.Stateless.BizTalk.Stream
 			using (var clearStream = TextStreamDummy.Create(1024 * 64))
 			using (var compressedStream = new ZipOutputStream(clearStream, "entry-name"))
 			{
-				compressedStream.IsZipValid().Should().BeTrue();
+				compressedStream.IsValidZipArchive().Should().BeTrue();
 			}
 		}
 

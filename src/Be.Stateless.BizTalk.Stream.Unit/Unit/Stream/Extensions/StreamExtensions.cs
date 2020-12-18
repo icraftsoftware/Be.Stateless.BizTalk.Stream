@@ -21,8 +21,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Xml;
 using Be.Stateless.BizTalk.Stream;
-using Microsoft.BizTalk.Streaming;
-using XmlTranslatorStream = Be.Stateless.BizTalk.Stream.XmlTranslatorStream;
 
 namespace Be.Stateless.BizTalk.Unit.Stream.Extensions
 {
