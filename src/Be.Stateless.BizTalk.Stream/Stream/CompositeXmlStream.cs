@@ -23,7 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using Be.Stateless.BizTalk.Schemas;
+using Be.Stateless.BizTalk.Namespaces;
 using Be.Stateless.IO;
 using Be.Stateless.Linq.Extensions;
 using log4net;
@@ -375,7 +375,7 @@ namespace Be.Stateless.BizTalk.Stream
 		private const string INPUT_MESSAGE_PART_END_TAG = "</agg:InputMessagePart_{0}>";
 		private const string INPUT_MESSAGE_PART_START_TAG = "<agg:InputMessagePart_{0}>";
 		private const string ROOT_END_TAG = "</agg:Root>";
-		private const string ROOT_START_TAG = "<agg:Root xmlns:agg=\"" + SchemaNamespaces.BizTalkAggregate + "\">";
+		private const string ROOT_START_TAG = "<agg:Root xmlns:agg=\"" + XmlSchemaNamespaces.BizTalkAggregate + "\">";
 		private static readonly ILog _logger = LogManager.GetLogger(typeof(CompositeXmlStream));
 		private byte[] _backlog;
 		private System.IO.Stream _currentStream;

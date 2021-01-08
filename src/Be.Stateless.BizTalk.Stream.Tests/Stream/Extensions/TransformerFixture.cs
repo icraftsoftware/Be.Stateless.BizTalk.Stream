@@ -23,8 +23,8 @@ using System.Xml;
 using System.Xml.Xsl;
 using Be.Stateless.BizTalk.ContextProperties;
 using Be.Stateless.BizTalk.Dummies.Transform;
+using Be.Stateless.BizTalk.Namespaces;
 using Be.Stateless.BizTalk.Runtime.Caching;
-using Be.Stateless.BizTalk.Schemas;
 using Be.Stateless.IO;
 using Be.Stateless.IO.Extensions;
 using FluentAssertions;
@@ -51,7 +51,7 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 
 			arguments.GetExtensionObject(ExtensionObjectNamespaces.MessageContext).Should().BeNull();
 
-			contextMock.Verify(c => c.Read(BizTalkFactoryProperties.EnvironmentTag.Name, BizTalkFactoryProperties.EnvironmentTag.Namespace), Times.Once());
+			contextMock.Verify(c => c.Read(BizTalkFactoryProperties.ContextBuilderTypeName.Name, BizTalkFactoryProperties.ContextBuilderTypeName.Namespace), Times.Once());
 			contextMock.Verify(c => c.Read(BtsProperties.Operation.Name, BtsProperties.Operation.Namespace), Times.Once());
 		}
 
