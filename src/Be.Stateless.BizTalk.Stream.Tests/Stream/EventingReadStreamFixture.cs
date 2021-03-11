@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -25,11 +25,26 @@ using FluentAssertions;
 using Moq;
 using Moq.Protected;
 using Xunit;
+using static FluentAssertions.FluentActions;
 
 namespace Be.Stateless.BizTalk.Stream
 {
 	public class EventingReadStreamFixture
 	{
+		#region Setup/Teardown
+
+		static EventingReadStreamFixture()
+		{
+			var content = string.Empty;
+			for (var i = 0; i < 70; i++)
+			{
+				content += Guid.NewGuid().ToString("N");
+			}
+			_content = Encoding.Default.GetBytes(content);
+		}
+
+		#endregion
+
 		[Fact]
 		public void InnerStreamIsClosed()
 		{
@@ -66,8 +81,7 @@ namespace Be.Stateless.BizTalk.Stream
 			var streamMock = new Mock<MemoryStream>(_content) { CallBase = true };
 			using (var stream = new EventingReadStream(streamMock.Object))
 			{
-				Func<long> act = () => stream.Length;
-				act.Should().Throw<NotSupportedException>();
+				Invoking(() => stream.Length).Should().Throw<NotSupportedException>();
 				stream.Drain();
 				stream.Length.Should().Be(_content.Length);
 			}
@@ -81,8 +95,7 @@ namespace Be.Stateless.BizTalk.Stream
 			streamMock.SetupGet(s => s.CanSeek).Returns(false);
 			using (var stream = new EventingReadStream(streamMock.Object))
 			{
-				Func<long> act = () => stream.Length;
-				act.Should().Throw<NotSupportedException>();
+				Invoking(() => stream.Length).Should().Throw<NotSupportedException>();
 				stream.Drain();
 				stream.Length.Should().Be(_content.Length);
 			}
@@ -178,16 +191,6 @@ namespace Be.Stateless.BizTalk.Stream
 			#endregion
 
 			private readonly System.IO.Stream _innerStream = new MemoryStream(_content);
-		}
-
-		static EventingReadStreamFixture()
-		{
-			var content = string.Empty;
-			for (var i = 0; i < 70; i++)
-			{
-				content += Guid.NewGuid().ToString("N");
-			}
-			_content = Encoding.Default.GetBytes(content);
 		}
 
 		private static readonly byte[] _content;

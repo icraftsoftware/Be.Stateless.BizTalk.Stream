@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 #endregion
 
-using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
@@ -24,6 +23,7 @@ using System.Xml;
 using FluentAssertions;
 using Moq;
 using Xunit;
+using static FluentAssertions.FluentActions;
 
 namespace Be.Stateless.BizTalk.Stream
 {
@@ -78,8 +78,7 @@ namespace Be.Stateless.BizTalk.Stream
 			using (var xmlReader = XmlReader.Create(composite))
 			{
 				xmlReader.Read();
-				Action act = () => xmlReader.ReadOuterXml();
-				act.Should().Throw<XmlException>();
+				Invoking(() => xmlReader.ReadOuterXml()).Should().Throw<XmlException>();
 			}
 		}
 
@@ -93,8 +92,8 @@ namespace Be.Stateless.BizTalk.Stream
 			using (var xmlReader = XmlReader.Create(composite))
 			{
 				xmlReader.Read();
-				Action act = () => xmlReader.ReadOuterXml();
-				act.Should().Throw<XmlException>().WithMessage("Unexpected XML declaration. The XML declaration must be the first node in the document*");
+				Invoking(() => xmlReader.ReadOuterXml())
+					.Should().Throw<XmlException>().WithMessage("Unexpected XML declaration. The XML declaration must be the first node in the document*");
 			}
 		}
 

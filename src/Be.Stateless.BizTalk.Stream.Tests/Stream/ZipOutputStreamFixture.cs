@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,8 +21,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Be.Stateless.BizTalk.Unit.Stream.Extensions;
-using Be.Stateless.Dummies.IO;
 using Be.Stateless.IO;
+using Be.Stateless.Unit.IO;
 using FluentAssertions;
 using Xunit;
 

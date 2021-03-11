@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ using FluentAssertions;
 using Moq;
 using Moq.Protected;
 using Xunit;
+using static FluentAssertions.FluentActions;
 
 namespace Be.Stateless.BizTalk.Stream
 {
@@ -47,16 +48,15 @@ namespace Be.Stateless.BizTalk.Stream
 		{
 			using (var stream = new ReplicatingReadStream(new MemoryStream(_content), new MemoryStream()))
 			{
-				Func<long> act = () => stream.Length;
-				act.Should().Throw<NotSupportedException>();
+				Invoking(() => stream.Length).Should().Throw<NotSupportedException>();
 			}
 		}
 
 		[Fact]
 		public void ReplicatingReadStreamRequiresTargetStreamToReplicate()
 		{
-			Func<System.IO.Stream> act = () => new ReplicatingReadStream(new MemoryStream(_content), null);
-			act.Should().Throw<ArgumentNullException>().WithMessage("Value cannot be null.\r\nParameter name: target");
+			Invoking(() => new ReplicatingReadStream(new MemoryStream(_content), null))
+				.Should().Throw<ArgumentNullException>().WithMessage("Value cannot be null.\r\nParameter name: target");
 		}
 
 		[Fact]
@@ -107,11 +107,11 @@ namespace Be.Stateless.BizTalk.Stream
 				stream.CanSeek.Should().BeFalse();
 				// don't drain the whole stream
 				stream.Read(new byte[1024], 0, 1024);
-				Action act = () => stream.Position = 0;
-				act.Should().Throw<InvalidOperationException>()
+				Invoking(() => stream.Position = 0)
+					.Should().Throw<InvalidOperationException>()
 					.WithMessage($"{nameof(ReplicatingReadStream)} is not seekable while the inner stream has not been thoroughly read and replicated.");
-				act = () => stream.Seek(0, SeekOrigin.Begin);
-				act.Should().Throw<InvalidOperationException>()
+				Invoking(() => stream.Seek(0, SeekOrigin.Begin))
+					.Should().Throw<InvalidOperationException>()
 					.WithMessage($"{nameof(ReplicatingReadStream)} cannot be sought while the inner stream has not been thoroughly read and replicated.");
 			}
 		}
@@ -136,8 +136,7 @@ namespace Be.Stateless.BizTalk.Stream
 				stream.CanSeek.Should().BeFalse();
 				stream.Drain();
 				stream.CanSeek.Should().BeTrue();
-				Action act = () => stream.Position = 0;
-				act.Should().NotThrow();
+				Invoking(() => stream.Position = 0).Should().NotThrow();
 			}
 		}
 
