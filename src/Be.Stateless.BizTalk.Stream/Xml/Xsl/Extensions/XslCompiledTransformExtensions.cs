@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -25,14 +25,14 @@ namespace Be.Stateless.BizTalk.Xml.Xsl.Extensions
 	internal static class XslCompiledTransformExtensions
 	{
 		/// <summary>
-		/// Executes the transform using the <see cref="Stream"/> as input document specified and outputs the results to an <see
-		/// cref="XmlWriter"/>.
+		/// Executes the transform using the <see cref="System.IO.Stream"/> as input document specified and outputs the results
+		/// to an <see cref="XmlWriter"/>.
 		/// </summary>
 		/// <param name="this">
 		/// The <see cref="XslCompiledTransform"/> transform to execute.
 		/// </param>
 		/// <param name="stream">
-		/// A <see cref="Stream"/> containing the input document.
+		/// A <see cref="System.IO.Stream"/> containing the input document.
 		/// </param>
 		/// <param name="arguments">
 		/// An <see cref="XsltArgumentList"/> containing the namespace-qualified arguments used as input to the transform.
@@ -49,15 +49,15 @@ namespace Be.Stateless.BizTalk.Xml.Xsl.Extensions
 		}
 
 		/// <summary>
-		/// Executes the transform using a compound of <see cref="Stream"/>s as input document specified and outputs the results
-		/// to an <see cref="XmlWriter"/>. The <paramref name="streams"/> compound will be aggregated in a composite XML
-		/// structure by the <see cref="CompositeXmlReader"/>.
+		/// Executes the transform using a compound of <see cref="System.IO.Stream"/>s as input document specified and outputs
+		/// the results to an <see cref="XmlWriter"/>. The <paramref name="streams"/> compound will be aggregated in a composite
+		/// XML structure by the <see cref="CompositeXmlReader"/>.
 		/// </summary>
 		/// <param name="this">
 		/// The <see cref="XslCompiledTransform"/> transform to execute.
 		/// </param>
 		/// <param name="streams">
-		/// The input <see cref="Stream"/> compound.
+		/// The input <see cref="System.IO.Stream"/> compound.
 		/// </param>
 		/// <param name="arguments">
 		/// An <see cref="XsltArgumentList"/> containing the namespace-qualified arguments used as input to the transform.

@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 	{
 		public Prober(MarkableForwardOnlyEventingReadStream stream)
 		{
-			_stream = stream ?? throw new ArgumentNullException(nameof(stream));
+			Stream = stream ?? throw new ArgumentNullException(nameof(stream));
 		}
 
 		#region IProbeStream Members
@@ -41,7 +41,7 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 			{
 				try
 				{
-					return Utils.GetDocType(_stream);
+					return Utils.GetDocType(Stream);
 				}
 				catch (XmlException)
 				{
@@ -50,8 +50,8 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 			}
 		}
 
-		#endregion
+		public MarkableForwardOnlyEventingReadStream Stream { get; }
 
-		private readonly MarkableForwardOnlyEventingReadStream _stream;
+		#endregion
 	}
 }

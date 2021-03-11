@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,11 +24,11 @@ using Microsoft.XLANGs.BaseTypes;
 namespace Be.Stateless.BizTalk.Stream.Extensions
 {
 	/// <summary>
-	/// Provides dependency injection support to <see cref="Stream"/> extension methods through various categories of dedicated
-	/// extension interfaces.
+	/// Provides dependency injection support to <see cref="System.IO.Stream"/> extension methods through various categories of
+	/// dedicated extension interfaces.
 	/// </summary>
 	/// <remarks>
-	/// The purpose of this factory is to make <see cref="Stream"/> extension methods amenable to mocking, <see
+	/// The purpose of this factory is to make <see cref="System.IO.Stream"/> extension methods amenable to mocking, <see
 	/// href="http://blogs.clariusconsulting.net/kzu/how-to-mock-extension-methods/"/>.
 	/// </remarks>
 	/// <seealso href="http://blogs.clariusconsulting.net/kzu/how-extension-methods-ruined-unit-testing-and-oop-and-a-way-forward/"/>
@@ -45,11 +45,11 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 		internal static Func<System.IO.Stream[], ITransformStream> StreamTransformerFactory { get; set; } = streams => new Transformer(streams);
 
 		/// <summary>
-		/// Ensure the <see cref="Stream"/> is wrapped in a <see cref="MarkableForwardOnlyEventingReadStream"/> and thereby ready
-		/// for probing, see <see cref="Probe"/>.
+		/// Ensure the <see cref="System.IO.Stream"/> is wrapped in a <see cref="MarkableForwardOnlyEventingReadStream"/> and
+		/// thereby ready for probing, see <see cref="Probe"/>.
 		/// </summary>
 		/// <param name="stream">
-		/// The current <see cref="Stream"/>.
+		/// The current <see cref="System.IO.Stream"/>.
 		/// </param>
 		/// <returns>
 		/// A <see cref="MarkableForwardOnlyEventingReadStream"/> stream.
@@ -60,11 +60,11 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 		}
 
 		/// <summary>
-		/// Ensure the <see cref="Stream"/> is wrapped in a <see cref="MarkableForwardOnlyEventingReadStream"/> and thereby ready
-		/// for probing, see <see cref="Probe"/>.
+		/// Ensure the <see cref="System.IO.Stream"/> is wrapped in a <see cref="MarkableForwardOnlyEventingReadStream"/> and
+		/// thereby ready for probing, see <see cref="Probe"/>.
 		/// </summary>
 		/// <param name="stream">
-		/// The current <see cref="Stream"/>.
+		/// The current <see cref="System.IO.Stream"/>.
 		/// </param>
 		/// <returns>
 		/// A <see cref="MarkableForwardOnlyEventingReadStream"/> stream.
@@ -72,33 +72,39 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 		/// <exception cref="InvalidCastException">
 		/// If <paramref name="stream"/> is not already wrapped in a <see cref="MarkableForwardOnlyEventingReadStream"/>.
 		/// </exception>
+		[SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Public API.")]
 		public static MarkableForwardOnlyEventingReadStream EnsureMarkable(this System.IO.Stream stream)
 		{
 			return (MarkableForwardOnlyEventingReadStream) stream;
 		}
 
 		/// <summary>
-		/// Support for <see cref="Stream"/> probing.
+		/// Support for <see cref="System.IO.Stream"/> probing.
 		/// </summary>
 		/// <param name="stream">
-		/// The current <see cref="Stream"/>.
+		/// The current <see cref="System.IO.Stream"/>.
 		/// </param>
 		/// <returns>
-		/// The <see cref="IProbeStream"/> instance that will probe the current <see cref="Stream"/>s.
+		/// The <see cref="IProbeStream"/> instance that will probe the current <see cref="System.IO.Stream"/>s.
 		/// </returns>
-		public static IProbeStream Probe(this MarkableForwardOnlyEventingReadStream stream)
+		/// <remarks>
+		/// The <paramref name="stream"/> is expected to be markable, that is to say, it has to be of type <see
+		/// cref="MarkableForwardOnlyEventingReadStream"/>.
+		/// </remarks>
+		public static IProbeStream Probe(this System.IO.Stream stream)
 		{
-			return StreamProberFactory(stream);
+			return StreamProberFactory(stream.EnsureMarkable());
 		}
 
 		/// <summary>
-		/// Support for <see cref="TransformBase"/>-derived transforms directly applied to one <see cref="Stream"/>.
+		/// Support for <see cref="TransformBase"/>-derived transforms directly applied to one <see cref="System.IO.Stream"/>.
 		/// </summary>
 		/// <param name="stream">
-		/// The current <see cref="Stream"/>.
+		/// The current <see cref="System.IO.Stream"/>.
 		/// </param>
 		/// <returns>
-		/// The <see cref="ITransformStream"/> instance that will apply the transform on the current <see cref="Stream"/>.
+		/// The <see cref="ITransformStream"/> instance that will apply the transform on the current <see
+		/// cref="System.IO.Stream"/>.
 		/// </returns>
 		public static ITransformStream Transform(this System.IO.Stream stream)
 		{
@@ -106,13 +112,15 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 		}
 
 		/// <summary>
-		/// Support for <see cref="TransformBase"/>-derived transforms directly applied to several <see cref="Stream"/>s.
+		/// Support for <see cref="TransformBase"/>-derived transforms directly applied to several <see
+		/// cref="System.IO.Stream"/>s.
 		/// </summary>
 		/// <param name="streams">
-		/// The current <see cref="Stream"/>s.
+		/// The current <see cref="System.IO.Stream"/>s.
 		/// </param>
 		/// <returns>
-		/// The <see cref="ITransformStream"/> instance that will apply the transform on the current <see cref="Stream"/>s.
+		/// The <see cref="ITransformStream"/> instance that will apply the transform on the current <see
+		/// cref="System.IO.Stream"/>s.
 		/// </returns>
 		public static ITransformStream Transform(this System.IO.Stream[] streams)
 		{

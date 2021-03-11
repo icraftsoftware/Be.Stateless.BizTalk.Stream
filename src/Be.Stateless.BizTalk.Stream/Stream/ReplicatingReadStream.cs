@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -25,7 +25,8 @@ using log4net;
 namespace Be.Stateless.BizTalk.Stream
 {
 	/// <summary>
-	/// A read-only <see cref="Stream"/> that replicates itself to another <see cref="Stream"/> while being read.
+	/// A read-only <see cref="System.IO.Stream"/> that replicates itself to another <see cref="System.IO.Stream"/> while being
+	/// read.
 	/// </summary>
 	public class ReplicatingReadStream : System.IO.Stream
 	{
@@ -33,10 +34,10 @@ namespace Be.Stateless.BizTalk.Stream
 		/// Construct a <see cref="ReplicatingReadStream"/> instance.
 		/// </summary>
 		/// <param name="source">
-		/// The <see cref="Stream"/> to replicate to <paramref name="target"/> while being read.
+		/// The <see cref="System.IO.Stream"/> to replicate to <paramref name="target"/> while being read.
 		/// </param>
 		/// <param name="target">
-		/// The <see cref="Stream"/> to replicate <paramref name="source"/> to while being read.
+		/// The <see cref="System.IO.Stream"/> to replicate <paramref name="source"/> to while being read.
 		/// </param>
 		public ReplicatingReadStream(System.IO.Stream source, System.IO.Stream target)
 		{

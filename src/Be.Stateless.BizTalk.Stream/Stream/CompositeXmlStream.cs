@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ using log4net;
 namespace Be.Stateless.BizTalk.Stream
 {
 	/// <summary>
-	/// Aggregates, at the stream level, several <see cref="Stream"/>s whose contents is XML.
+	/// Aggregates, at the stream level, several <see cref="System.IO.Stream"/>s whose contents is XML.
 	/// </summary>
 	/// <remarks>
 	/// <para>
@@ -41,7 +41,7 @@ namespace Be.Stateless.BizTalk.Stream
 	/// able to lift either of these constraints.
 	/// </para>
 	/// <para>
-	/// The contents of the aggregated <see cref="Stream"/>s is wrapped in an XML structured as follows:
+	/// The contents of the aggregated <see cref="System.IO.Stream"/>s is wrapped in an XML structured as follows:
 	/// <code>
 	/// <![CDATA[<agg:Root xmlns:agg="http://schemas.microsoft.com/BizTalk/2003/aggschema">
 	///   <agg:InputMessagePart_0>
@@ -64,7 +64,7 @@ namespace Be.Stateless.BizTalk.Stream
 		/// Construct an <see cref="CompositeXmlStream"/> instance wrapper around the <paramref name="streams"/>.
 		/// </summary>
 		/// <param name="streams">
-		/// The <see cref="Stream"/>s to wrap.
+		/// The <see cref="System.IO.Stream"/>s to wrap.
 		/// </param>
 		public CompositeXmlStream(System.IO.Stream[] streams)
 		{

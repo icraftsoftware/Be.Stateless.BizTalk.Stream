@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -62,16 +62,16 @@ namespace Be.Stateless.BizTalk.Unit.Stream.Extensions
 		}
 
 		/// <summary>
-		/// Applies a set of <see cref="XmlNamespaceTranslation"/> translations to an XML <see cref="Stream"/>.
+		/// Applies a set of <see cref="XmlNamespaceTranslation"/> translations to an XML <see cref="System.IO.Stream"/>.
 		/// </summary>
 		/// <param name="stream">
-		/// The XML <see cref="Stream"/> to be translated.
+		/// The XML <see cref="System.IO.Stream"/> to be translated.
 		/// </param>
 		/// <param name="translations">
 		/// The set of <see cref="XmlNamespaceTranslation"/> translations to apply.
 		/// </param>
 		/// <returns>
-		/// The translated <see cref="Stream"/>.
+		/// The translated <see cref="System.IO.Stream"/>.
 		/// </returns>
 		[SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "Done by XmlTranslatorStream.")]
 		public static System.IO.Stream Translate(this System.IO.Stream stream, XmlNamespaceTranslation[] translations)

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <RootNamespace>Be.Stateless.BizTalk</RootNamespace>
-    <AssemblyTitle>Be.Stateless.BizTalk.Stream.Tests</AssemblyTitle>
+    <AssemblyName>Be.Stateless.BizTalk.Stream.Tests</AssemblyName>
     <Description>Unit tests for BizTalk Factory's stream class library for general purpose BizTalk Server development.</Description>
   </PropertyGroup>
 
@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Be.Stateless.Common" Version="2.0.21005.39505" />
-    <PackageReference Include="Be.Stateless.Common.Unit" Version="2.0.21005.39505" />
+    <PackageReference Include="Be.Stateless.Common" Version="2.0.21060.31482" />
+    <PackageReference Include="Be.Stateless.Common.Unit" Version="2.0.21060.31482" />
     <PackageReference Include="Be.Stateless.Stream.Unit" Version="2.0.21005.40362" />
     <PackageReference Include="BizTalk.Server.2020.Runtime" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
