@@ -134,7 +134,7 @@ namespace Be.Stateless.BizTalk.Stream
 			using (var stream = new EventingReadStream(new MemoryStream(_content)))
 			{
 				var edgeEventsCount = 0;
-				stream.AfterLastReadEvent += (sender, args) => ++edgeEventsCount;
+				stream.AfterLastReadEvent += (_, _) => ++edgeEventsCount;
 				while (stream.Read(tempBuffer, 0, tempBuffer.Length) == tempBuffer.Length) { }
 				stream.ReadCompleted.Should().BeTrue();
 				edgeEventsCount.Should().Be(1);
@@ -144,7 +144,7 @@ namespace Be.Stateless.BizTalk.Stream
 			using (var stream = new MicrosoftEventingReadStream())
 			{
 				var edgeEventsCount = 0;
-				stream.AfterLastReadEvent += (sender, args) => ++edgeEventsCount;
+				stream.AfterLastReadEvent += (_, _) => ++edgeEventsCount;
 				while (stream.Read(tempBuffer, 0, tempBuffer.Length) == tempBuffer.Length) { }
 				stream.ReadCompleted.Should().BeFalse();
 				edgeEventsCount.Should().Be(0);

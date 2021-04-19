@@ -77,7 +77,7 @@ namespace Be.Stateless.BizTalk.Stream
 		{
 			// computing content beforehand is much faster than using a ReplicatingReadStream
 			var content = Enumerable.Range(0, 1024)
-				.Select(i => Guid.NewGuid().ToString())
+				.Select(_ => Guid.NewGuid().ToString())
 				.Aggregate(string.Empty, (k, v) => k + v);
 			using (var clearStream = new StringStream(content))
 			using (var compressedStream = new ZipOutputStream(clearStream, "entry-name", 16))

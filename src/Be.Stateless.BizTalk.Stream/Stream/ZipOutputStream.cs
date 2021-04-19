@@ -215,7 +215,7 @@ namespace Be.Stateless.BizTalk.Stream
 		private void AppendCompressedBytes(byte[] buffer, int offset, int count)
 		{
 			var backlog = _bufferController.Append(buffer, offset, count);
-			if (backlog != null && backlog.Length > 0) _backlogs.Add(backlog);
+			if (backlog is { Length: > 0 }) _backlogs.Add(backlog);
 		}
 
 		private readonly byte[] _buffer;
