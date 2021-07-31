@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2021 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,16 +16,19 @@
 
 #endregion
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.XPath;
+using Be.Stateless.IO.Extensions;
 using Be.Stateless.Linq.Extensions;
 using Be.Stateless.Xml.XPath.Extensions;
 using FluentAssertions;
 using Xunit;
+using static FluentAssertions.FluentActions;
 
 namespace Be.Stateless.BizTalk.Stream
 {
@@ -85,6 +88,28 @@ namespace Be.Stateless.BizTalk.Stream
 			{
 				reader.ReadToEnd().Should().Be("<test att=\"22\">value</test>");
 			}
+		}
+
+		[Fact]
+		public void InputXmlReaderCannotBeMovedToContent()
+		{
+			var inputXmlReader = XmlReader.Create(new StringReader("<payload>dummy</payload>"));
+			var stream = new XmlTranslatorStream(inputXmlReader, new[] { new XmlNamespaceTranslation { MatchingPatternString = string.Empty, ReplacementPattern = "urn:ns" } });
+			// move to content after XmlTranslatorStream initialization to trick it
+			inputXmlReader.MoveToContent();
+			Invoking(() => stream.ReadToEnd())
+				.Should().Throw<InvalidOperationException>()
+				.WithMessage("There was no XML start tag open.");
+		}
+
+		[Fact]
+		public void InputXmlReaderIfMovedToContentWillBeHandled()
+		{
+			var inputXmlReader = XmlReader.Create(new StringReader("<payload>dummy</payload>"));
+			// move to content before XmlTranslatorStream initialization to let it workaround the issue
+			inputXmlReader.MoveToContent();
+			var stream = new XmlTranslatorStream(inputXmlReader, new[] { new XmlNamespaceTranslation { MatchingPatternString = string.Empty, ReplacementPattern = "urn:ns" } });
+			stream.ReadToEnd().Should().Be("<payload xmlns=\"urn:ns\">dummy</payload>");
 		}
 
 		[Fact]
