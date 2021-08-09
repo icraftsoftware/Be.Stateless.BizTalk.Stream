@@ -42,7 +42,7 @@ namespace Be.Stateless.BizTalk.Xml.Xsl.Extensions
 		/// </param>
 		internal static void Transform(this XslCompiledTransform @this, System.IO.Stream stream, XsltArgumentList arguments, XmlWriter writer)
 		{
-			using (var xmlReader = XmlReader.Create(stream, new XmlReaderSettings { CloseInput = true, XmlResolver = null }))
+			using (var xmlReader = XmlReader.Create(stream, new() { CloseInput = true, XmlResolver = null }))
 			{
 				@this.Transform(xmlReader, arguments, writer);
 			}
@@ -68,7 +68,7 @@ namespace Be.Stateless.BizTalk.Xml.Xsl.Extensions
 		/// <seealso cref="CompositeXmlReader"/>
 		internal static void Transform(this XslCompiledTransform @this, IEnumerable<System.IO.Stream> streams, XsltArgumentList arguments, XmlWriter writer)
 		{
-			using (var xmlReader = CompositeXmlReader.Create(streams, new XmlReaderSettings { CloseInput = true, XmlResolver = null }))
+			using (var xmlReader = CompositeXmlReader.Create(streams, new() { CloseInput = true, XmlResolver = null }))
 			{
 				@this.Transform(xmlReader, arguments, writer);
 			}

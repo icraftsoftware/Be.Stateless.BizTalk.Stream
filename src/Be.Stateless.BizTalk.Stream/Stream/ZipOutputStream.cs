@@ -160,7 +160,7 @@ namespace Be.Stateless.BizTalk.Stream
 			if (count < 0) throw new ArgumentOutOfRangeException(nameof(count), "Cannot be negative.");
 			if (offset + count > buffer.Length) throw new ArgumentException("The sum of offset and count is greater than the byte array length.");
 
-			_bufferController = new BufferController(buffer, offset, count);
+			_bufferController = new(buffer, offset, count);
 			_backlogs = _bufferController.Append(_backlogs).ToList();
 			while (_bufferController.Availability > 0 && !_eos)
 			{
@@ -204,7 +204,7 @@ namespace Be.Stateless.BizTalk.Stream
 			{
 				if (_compressedStream == null)
 				{
-					_archive = new ZipArchive(new BufferStream(this), ZipArchiveMode.Create, true);
+					_archive = new(new BufferStream(this), ZipArchiveMode.Create, true);
 					var zipEntry = _archive.CreateEntry(_zipEntryName);
 					_compressedStream = zipEntry.Open();
 				}

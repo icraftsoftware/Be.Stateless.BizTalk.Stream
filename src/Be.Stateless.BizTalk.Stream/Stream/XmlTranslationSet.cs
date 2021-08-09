@@ -94,7 +94,7 @@ namespace Be.Stateless.BizTalk.Stream
 			if (second == null) throw new ArgumentNullException(nameof(second));
 			return Override
 				? this
-				: new XmlTranslationSet { Items = Items.Union(second.Items).ToArray() };
+				: new() { Items = Items.Union(second.Items).ToArray() };
 		}
 
 		[Conditional("DEBUG")]

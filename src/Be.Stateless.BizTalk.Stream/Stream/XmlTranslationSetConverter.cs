@@ -34,7 +34,7 @@ namespace Be.Stateless.BizTalk.Stream
 		public static XmlTranslationSet Deserialize(string xml)
 		{
 			if (xml.IsNullOrEmpty()) return XmlTranslationSet.Empty;
-			using (var reader = XmlReader.Create(new StringReader(xml), new XmlReaderSettings { XmlResolver = null }))
+			using (var reader = XmlReader.Create(new StringReader(xml), new() { XmlResolver = null }))
 			{
 				var xmlSerializer = new XmlSerializer(typeof(XmlTranslationSet));
 				return (XmlTranslationSet) xmlSerializer.Deserialize(reader);
@@ -46,13 +46,13 @@ namespace Be.Stateless.BizTalk.Stream
 		{
 			if (translations == null || !translations.Items.Any()) return null;
 			using (var stream = new MemoryStream())
-			using (var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings { Encoding = new UTF8Encoding(false), Indent = false, OmitXmlDeclaration = true }))
+			using (var xmlWriter = XmlWriter.Create(stream, new() { Encoding = new UTF8Encoding(false), Indent = false, OmitXmlDeclaration = true }))
 			{
 				var xmlSerializer = new XmlSerializer(typeof(XmlTranslationSet));
 				xmlSerializer.Serialize(
 					xmlWriter,
 					translations,
-					new XmlSerializerNamespaces(new[] { new XmlQualifiedName("xt", XmlTranslationSet.NAMESPACE) }));
+					new(new[] { new XmlQualifiedName("xt", XmlTranslationSet.NAMESPACE) }));
 				return Encoding.UTF8.GetString(stream.ToArray());
 			}
 		}

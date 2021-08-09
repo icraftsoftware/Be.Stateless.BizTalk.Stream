@@ -17,6 +17,7 @@
 #endregion
 
 using System.Text.RegularExpressions;
+using Be.Stateless.Runtime.Caching;
 
 namespace Be.Stateless.BizTalk.Runtime.Caching
 {
@@ -35,6 +36,6 @@ namespace Be.Stateless.BizTalk.Runtime.Caching
 		/// <summary>
 		/// Create the singleton <see cref="RegexCache"/> instance.
 		/// </summary>
-		private RegexCache() : base(key => key, key => new Regex(key, RegexOptions.Compiled)) { }
+		private RegexCache() : base(key => key, key => new(key, RegexOptions.Compiled)) { }
 	}
 }

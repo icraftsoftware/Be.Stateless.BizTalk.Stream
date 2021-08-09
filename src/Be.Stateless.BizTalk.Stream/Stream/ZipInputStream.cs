@@ -77,7 +77,7 @@ namespace Be.Stateless.BizTalk.Stream
 
 		public override int Read(byte[] buffer, int offset, int count)
 		{
-			_archive ??= new ZipArchive(_baseInputStream, ZipArchiveMode.Read, true);
+			_archive ??= new(_baseInputStream, ZipArchiveMode.Read, true);
 			_decompressionStream ??= _archive.Entries[0].Open();
 			var byteCount = _decompressionStream.Read(buffer, offset, count);
 			if (byteCount == 0) _baseInputStream.Drain();

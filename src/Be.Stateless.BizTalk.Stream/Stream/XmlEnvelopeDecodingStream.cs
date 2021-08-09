@@ -30,7 +30,7 @@ namespace Be.Stateless.BizTalk.Stream
 	public class XmlEnvelopeDecodingStream : Microsoft.BizTalk.Streaming.XmlTranslatorStream
 	{
 		[SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Public API.")]
-		public XmlEnvelopeDecodingStream(System.IO.Stream stream, string bodyXPath) : this(XmlReader.Create(stream, new XmlReaderSettings { CloseInput = true }), bodyXPath) { }
+		public XmlEnvelopeDecodingStream(System.IO.Stream stream, string bodyXPath) : this(XmlReader.Create(stream, new() { CloseInput = true }), bodyXPath) { }
 
 		public XmlEnvelopeDecodingStream(XmlReader reader, string bodyXPath) : this(reader, XPathCollectionFactory.Create(bodyXPath)) { }
 
