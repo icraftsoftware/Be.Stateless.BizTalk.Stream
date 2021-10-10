@@ -26,7 +26,6 @@ namespace Be.Stateless.BizTalk.Stream
 {
 	[SuppressMessage("ReSharper", "ConvertToUsingDeclaration")]
 	[SuppressMessage("ReSharper", "ArrangeRedundantParentheses")]
-	[SuppressMessage("Style", "IDE0063:Use simple 'using' statement")]
 	public class XmlEnvelopeDecodingStreamFixture
 	{
 		[Fact]

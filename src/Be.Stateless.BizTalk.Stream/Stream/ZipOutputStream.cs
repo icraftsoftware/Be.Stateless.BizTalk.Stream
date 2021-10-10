@@ -220,10 +220,7 @@ namespace Be.Stateless.BizTalk.Stream
 
 		private readonly byte[] _buffer;
 		private readonly string _zipEntryName;
-
-		[SuppressMessage("Usage", "CA2213:Disposable fields should be disposed", Justification = "The Dispose method is called by Read()")]
-		private ZipArchive _archive;
-
+		private ZipArchive _archive; // Read() will call _archive.Dispose()
 		private IList<byte[]> _backlogs = new List<byte[]>();
 		private BufferController _bufferController;
 		private System.IO.Stream _compressedStream;

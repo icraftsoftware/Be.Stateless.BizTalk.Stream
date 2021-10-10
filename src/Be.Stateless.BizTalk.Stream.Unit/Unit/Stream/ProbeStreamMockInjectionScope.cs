@@ -24,7 +24,6 @@ using Moq;
 
 namespace Be.Stateless.BizTalk.Unit.Stream
 {
-	[SuppressMessage("Design", "CA1063:Implement IDisposable Correctly")]
 	[SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Public API")]
 	[SuppressMessage("ReSharper", "UnusedType.Global", Justification = "Public API")]
 	public class ProbeStreamMockInjectionScope : IDisposable
@@ -38,7 +37,6 @@ namespace Be.Stateless.BizTalk.Unit.Stream
 
 		#region IDisposable Members
 
-		[SuppressMessage("Usage", "CA1816:Dispose methods should call SuppressFinalize")]
 		public void Dispose()
 		{
 			StreamExtensions.StreamProberFactory = _proberFactory;

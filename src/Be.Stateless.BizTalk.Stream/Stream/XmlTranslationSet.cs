@@ -74,7 +74,6 @@ namespace Be.Stateless.BizTalk.Stream
 
 		#endregion
 
-		[SuppressMessage("Performance", "CA1819:Properties should not return arrays")]
 		[XmlElement("NamespaceTranslation")]
 		public XmlNamespaceTranslation[] Items
 		{
@@ -98,8 +97,6 @@ namespace Be.Stateless.BizTalk.Stream
 		}
 
 		[Conditional("DEBUG")]
-		[SuppressMessage("Globalization", "CA1305:Specify IFormatProvider")]
-		[SuppressMessage("Performance", "CA1822:Mark members as static")]
 		[SuppressMessage("ReSharper", "UseStringInterpolation")]
 		private void CheckItemsUniqueness(IEnumerable<XmlNamespaceTranslation> items)
 		{

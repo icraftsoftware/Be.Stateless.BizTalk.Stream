@@ -89,13 +89,11 @@ namespace Be.Stateless.BizTalk.Stream
 
 		#endregion
 
-		[SuppressMessage("Performance", "CA1822:Mark members as static")]
 		private bool IsNamespaceAttribute(string prefix, string localName, string nsUri)
 		{
 			return nsUri == XNamespace.Xmlns.NamespaceName && (prefix == "xmlns" || localName == "xmlns");
 		}
 
-		[SuppressMessage("Performance", "CA1822:Mark members as static")]
 		private bool IsGlobalNamespaceUri(string targetNamespaceUri)
 		{
 			return targetNamespaceUri.IsNullOrEmpty();
