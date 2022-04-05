@@ -9,11 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Data\input.xml" />
+    <None Remove="Resources\Data\output.csv" />
     <None Remove="Resources\Zip\MeteringRequest.zip" />
     <None Remove="Resources\Zip\MeterReadsPeriodicDelivery.zip" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Data\input.xml" />
+    <EmbeddedResource Include="Resources\Data\output.csv" />
     <EmbeddedResource Include="Resources\Zip\MeteringRequest.zip" />
     <EmbeddedResource Include="Resources\Zip\MeterReadsPeriodicDelivery.zip" />
   </ItemGroup>
@@ -32,8 +36,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="FluentAssertions" Version="6.3.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageReference Include="FluentAssertions" Version="6.6.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="xunit.core" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">

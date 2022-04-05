@@ -1,0 +1,20 @@
+﻿<Input>
+  <Record>
+    <Name>John Doe</Name>
+    <Zip>7100</Zip>
+    <City>L.A.</City>
+    <Country>USA</Country>
+  </Record>
+  <Record>
+    <Name>Jane Doe</Name>
+    <Zip>5000</Zip>
+    <City>Washington</City>
+    <Country>USA</Country>
+  </Record>
+  <Record>
+    <Name>John Smith</Name>
+    <Zip>6666</Zip>
+    <City>N.Y.C.</City>
+    <Country>USA</Country>
+  </Record>
+</Input>

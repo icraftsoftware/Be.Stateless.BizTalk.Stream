@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2021 François Chabot
+// Copyright © 2012 - 2022 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Reflection;
 using System.Xml;
 using System.Xml.Xsl;
 using Be.Stateless.BizTalk.ContextProperties;
@@ -27,6 +28,7 @@ using Be.Stateless.BizTalk.Namespaces;
 using Be.Stateless.BizTalk.Runtime.Caching;
 using Be.Stateless.IO;
 using Be.Stateless.IO.Extensions;
+using Be.Stateless.Resources;
 using FluentAssertions;
 using Microsoft.BizTalk.Message.Interop;
 using Moq;
@@ -120,6 +122,15 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 		}
 
 		[Fact]
+		public void NewLinesAndSpaceEntitiesAreNotDiscardedForTextOutput()
+		{
+			ResourceManager.Load(Assembly.GetExecutingAssembly(), "Be.Stateless.BizTalk.Resources.Data.input.xml")
+				.Transform()
+				.Apply(typeof(TextTransform))
+				.ReadToEnd().Should().Be(ResourceManager.Load(Assembly.GetExecutingAssembly(), "Be.Stateless.BizTalk.Resources.Data.output.csv").ReadToEnd());
+		}
+
+		[Fact]
 		public void TransformMultipleStreamsDiscardsXmlDeclarations()
 		{
 			using (var stream1 = new StringStream("<?xml version='1.0' encoding='utf-16'?><root><one/></root>"))
@@ -138,8 +149,8 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 			}
 		}
 
-		[Fact]
 		[SuppressMessage("ReSharper", "AccessToDisposedClosure")]
+		[Fact]
 		public void TransformOneAggregateStreamDoesNotDiscardXmlDeclarationsAndThrows()
 		{
 			using (var stream1 = new StringStream("<?xml version='1.0' encoding='utf-16'?><root><one/></root>"))

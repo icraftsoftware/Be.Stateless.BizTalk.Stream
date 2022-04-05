@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2021 François Chabot
+// Copyright © 2012 - 2022 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -68,8 +68,8 @@ namespace Be.Stateless.BizTalk.Stream
 			}
 		}
 
-		[Fact]
 		[SuppressMessage("ReSharper", "AccessToDisposedClosure")]
+		[Fact]
 		public void AssumesCompoundStreamsAreUtf8Encoded()
 		{
 			var part1 = Encoding.UTF8.GetBytes("<part-one xmlns=\"part-one\"><child-one>one</child-one></part-one>");
@@ -82,8 +82,8 @@ namespace Be.Stateless.BizTalk.Stream
 			}
 		}
 
-		[Fact]
 		[SuppressMessage("ReSharper", "AccessToDisposedClosure")]
+		[Fact]
 		public void AssumesCompoundStreamsHaveNoXmlDeclarations()
 		{
 			var part1 = Encoding.UTF8.GetBytes("<?xml version=\"1.0\" encoding=\"utf-8\" ?><part-one xmlns=\"part-one\"><child-one>one</child-one></part-one>");
@@ -97,6 +97,7 @@ namespace Be.Stateless.BizTalk.Stream
 			}
 		}
 
+		[SuppressMessage("ReSharper", "MustUseReturnValue")]
 		[Fact]
 		public void InputStreamsAreClosed()
 		{

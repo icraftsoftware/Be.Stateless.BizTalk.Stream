@@ -1,6 +1,6 @@
 ﻿#region Copyright & License
 
-// Copyright © 2012 - 2020 François Chabot
+// Copyright © 2012 - 2022 François Chabot
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 
 			var transformDescriptor = LookupTransformDescriptor(transform);
 			var xsltArgumentList = BuildArgumentList(transformDescriptor, null);
-			return Apply(transformDescriptor.XslCompiledTransform, xsltArgumentList, encoding);
+			return Apply(transformDescriptor.CompiledXslt, xsltArgumentList, encoding);
 		}
 
 		public System.IO.Stream Apply(Type transform, XsltArgumentList arguments)
@@ -84,7 +84,7 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 
 			var transformDescriptor = LookupTransformDescriptor(transform);
 			var xsltArgumentList = BuildArgumentList(transformDescriptor, arguments);
-			return Apply(transformDescriptor.XslCompiledTransform, xsltArgumentList, encoding);
+			return Apply(transformDescriptor.CompiledXslt, xsltArgumentList, encoding);
 		}
 
 		public ITransformStream ExtendWith(IBaseMessageContext context)
@@ -129,6 +129,7 @@ namespace Be.Stateless.BizTalk.Stream.Extensions
 			var settings = xsl.OutputSettings.Clone();
 			settings.CloseOutput = false;
 			settings.Encoding = encoding;
+			if (settings.OutputMethod == XmlOutputMethod.Text) settings.NewLineHandling = NewLineHandling.None;
 			using (var writer = XmlWriter.Create(output, settings))
 			{
 				if (_streams.Length == 1)

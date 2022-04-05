@@ -16,35 +16,45 @@
 
 #endregion
 
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.XLANGs.BaseTypes;
 
 namespace Be.Stateless.BizTalk.Dummies.Transform
 {
-	[SchemaReference("Microsoft.XLANGs.BaseTypes.Any", typeof(Any))]
-	[SuppressMessage("ReSharper", "UnusedType.Global", Justification = "Unit test resource.")]
-	internal sealed class CompoundMapTransform : TransformBase
+	[SchemaReference(@"Microsoft.XLANGs.BaseTypes.Any", typeof(Any))]
+	public sealed class TextTransform : TransformBase
 	{
-		static CompoundMapTransform()
-		{
-			_xmlContent = @"<xsl:stylesheet version='1.0' xmlns:xsl='http://www.w3.org/1999/XSL/Transform'>
-	<xsl:import href='map://type/Be.Stateless.BizTalk.Dummies.Transform.CompoundContextMapTransform, Be.Stateless.BizTalk.Stream.Tests, Version=2.1.0.0, Culture=neutral, PublicKeyToken=3707daa0b119fc14' />
-	<xsl:template match='two'><second><xsl:value-of select='text()'/></second></xsl:template>
-</xsl:stylesheet>";
-		}
-
 		#region Base Class Member Overrides
 
 		public override string[] SourceSchemas => new[] { typeof(Any).FullName };
 
 		public override string[] TargetSchemas => new[] { typeof(Any).FullName };
 
-		public override string XmlContent => _xmlContent;
+		public override string XmlContent => XML_CONTENT;
 
 		public override string XsltArgumentListContent => @"<ExtensionObjects />";
 
 		#endregion
 
-		private static readonly string _xmlContent;
+		private const string XML_CONTENT = @"<?xml version='1.0' encoding='utf-8'?>
+<xsl:stylesheet xmlns:xsl='http://www.w3.org/1999/XSL/Transform' version='1.0'>
+  <xsl:output method='text' />
+
+  <xsl:template match='/'>
+    <xsl:text disable-output-escaping='yes'>NAME;ZIP;CITY;COUNTRY&#13;</xsl:text>
+    <xsl:apply-templates select='Input/Record'/>
+  </xsl:template>
+
+  <xsl:template match='Record'>
+    <xsl:value-of select='Name' />
+    <xsl:text>;</xsl:text>
+    <xsl:value-of select='Zip' />
+    <xsl:text>;</xsl:text>
+    <xsl:value-of select='City' />
+    <xsl:text>;</xsl:text>
+    <xsl:value-of select='Country' />
+    <xsl:text disable-output-escaping='yes'>&#13;</xsl:text>
+  </xsl:template>
+
+</xsl:stylesheet>";
 	}
 }
